@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello World</title>
+
+    <!-- The React scripts are newer versions than from the lesson
+         React DOM script comes AFTER the React script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js"></script>
+    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+
+  </head>
+  <body>
+
+    <div id="app"></div>
+    <!--text/babel this tells Babel (which is loaded in the head portion of the HTML)
+        to handle the execution of the JavaScript-->
+     <script type="text/babel">
+     /*previous way to write it:
+     ReactDOM.render(
+     <h1>Hello world</h1>,
+     document.querySelector('#app')
+   ); */
+
+     //other way to write it:
+      let app = <h1>Hello world</h1>
+      let mountComponent = document.querySelector('#app');
+      ReactDOM.render(app, mountComponent);
+
+      //ReactDOM.render(  what  ,  where  )
+      //our "app"  is a React element which represents an h1 tag
+      //imagine "app"  being much larger
+
+    </script>
+
+  </body>
+</html>
