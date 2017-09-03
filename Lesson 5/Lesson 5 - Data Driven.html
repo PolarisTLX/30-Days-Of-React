@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React Timeline</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- The React scripts are newer versions than from the lesson
+         React DOM script comes AFTER the React script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js"></script>
+    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+
+  </head>
+  <body>
+
+    <div id="app"></div>
+    <script type="text/babel">
+
+    //Seperated the 3 components into their own files as I have done in previous react work
+    //class Header extends React.Component {
+    //class Content extends React.Component {
+    //class ActivityItem extends React.Component {
+
+    //what I believe needs to be included to bring all the components together and run the page:
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+    import App from './App';
+    import Header from './Header';
+    import Content from './Content';
+    import ActivityItem from './ActivityItem';
+
+
+      //javascript object:
+    const activities = [
+      {
+        timestamp: new Date().getTime(),
+        text: "Ate lunch",
+        user: {
+          id: 1, name: 'Doug',
+          avatar: "http://www.croop.cl/UI/twitter/images/doug.jpg"
+        },
+        comments: [{ from: 'Ari', text: 'Me too!'}]
+      },
+      {
+        timestamp: new Date().getTime(),
+        text: "Woke up early for a beautiful run",
+        user: {
+          id: 2, name: 'Ari',
+          avatar: "http://www.croop.cl/UI/twitter/images/doug.jpg"
+        },
+        comments: [{ from: 'Doug', text: 'I am so jealous'}]
+      },
+    ]
+
+
+      let mount = document.querySelector('#app');
+      ReactDOM.render(<App />, mount);
+      //here the App is called with </>
+      //just like if it was a built-in DOM component
+      //like a <div> or <h1>
+
+    </script>
+
+  </body>
+</html
