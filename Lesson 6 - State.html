@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React Timeline</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- The React scripts are newer versions than from the lesson
+         React DOM script comes AFTER the React script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js"></script>
+    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+
+  </head>
+  <body>
+   <div id="app"></div>
+   <script type="text/babel">
+
+    class Clock extends React.Component {
+
+      //to make our clock update continuously
+      //need to set an initial state using ES6 class style "constructor()" and this.state
+      constructor(props) {
+        super(props);  //this ALWAYS NEEDS TO BE HERE
+        this.state = this.getTime();
+      }
+
+      //using native setTimeout() to update the clock of this.state every 1000 mseconds
+      setTimer() {
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(this.updateClock.bind(this), 1000);
+      }
+      updateClock() {
+        //this does not keep updating continuously?
+        //this.setState(this.getTime, this.setTimer);
+        //therefore? to reset it again we call setTimer() again at the end
+        const currentTime = new Date();
+        this.setState({currentTime: currentTime}, this.setTimer);
+        //to save on batteries of mobile devies,
+        //we also make sure that this.setTimer is passed as the 2nd argument
+        //of the this.setState, so it ONLY gets called after an update is definitely done
+      }
+
+      render() {
+
+        //for a static time:
+        /*
+        const currentTime = new Date(),
+        hours = currentTime.getHours(),
+        minutes = currentTime.getMinutes(),
+        seconds = currentTime.getSeconds(),
+        ampm = hours >= 12 ? 'pm' : 'am';
+        */
+
+        //For live clock:
+        const {hours, minutes, seconds, ampm} = this.state;
+
+        return (
+          <div className="clock"> {
+            hours === 0 ? 12 : (hours > 12) ? hours - 12 : hours
+          }:{
+            minutes > 9 ? minutes : `0${minutes}`
+          }:{
+            seconds > 9 ? seconds : `0${seconds}`
+          } {ampm}
+          </div>
+        )
+      }
+    }
+    //export default Clock
+
+    //to make the search icon clickable and show an <input /> component
+    class Header extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          searchVisible: false
+        }
+      }
+      //toggle visibility when run on the state
+      showSearch() {
+        this.setState({
+          searchVisible: !this.state.searchVisible
+      })
+    }
+    render() {
+      //Classes to add to the <input /> element
+      let searchInputClasses = ["searchInput"];
+
+      //update the class array if the state is visible
+      if (this.state.searchVisible) {
+        searchInputClasses.push("active");
+      }
+      return (
+        <div className="header">
+          <MenuButton />
+          <span className="title">
+            {this.props.title}
+          </span>
+
+          <input type="text" className={searchInputClasses.join(' ')}
+                 placeholder="Search..." />
+
+          {/*adding onClick handler to call the showSearch button*/}
+          <div onClick={this.showSearch.bind(this)} className="fa fa-search searchIcon"></div>
+        )
+      }
+    }
+
+
+    let mount = document.querySelector('#app');
+    ReactDOM.render(<Clock />, mount);
+
+   </script>
+
+  </body>
+</html
